@@ -1,0 +1,6 @@
+.elements__card-like {
+  background-image: url(../../../images/elements/like.svg);
+  width: 21px;
+  height: 18px;
+  box-sizing: border-box;
+}
