@@ -10,4 +10,6 @@
   height: 24px;
   cursor: pointer;
   grid-area: edit;
+  text-align: center;
+  margin-left: 20px;
 }
