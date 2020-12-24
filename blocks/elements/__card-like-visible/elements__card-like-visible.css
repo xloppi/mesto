@@ -1,0 +1,7 @@
+.elements__card-like-visible {
+  background-image: url(../../../images/elements/like.svg);
+  width: 20px;
+  height: 18px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}

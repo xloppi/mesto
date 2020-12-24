@@ -1,7 +1,13 @@
 .profile__edit-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 0;
+  border-radius: 0;
+  background: #000000;
   background-image: url(../../../images/profile__edit-button.svg);
   width: 24px;
   height: 24px;
+  cursor: pointer;
   grid-area: edit;
-  align-self: center;
 }

@@ -1,0 +1,15 @@
+.elements__card-like-checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.elements__card-like-checkbox:checked + .elements__card-like-visible {
+  background-image: url(../../../images/elements/like_active.svg);
+}
+
+.elements__card-like-checkbox:hover + .elements__card-like-visible {
+  opacity: 50%;
+}
