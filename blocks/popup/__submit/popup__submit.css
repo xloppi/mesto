@@ -7,4 +7,18 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.popup__submit:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+  .popup__submit {
+    height: 46px;
+    font-size: 14px;
+    line-height: 17px;
+  }
 }

@@ -7,3 +7,9 @@
   box-sizing: border-box;
   padding: 45px 19px 60px;
 }
+
+@media screen and (max-width: 768px) {
+  .page__container {
+    padding: 28px 19px 60px;
+  }
+}
