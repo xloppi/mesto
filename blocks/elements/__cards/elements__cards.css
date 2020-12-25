@@ -8,3 +8,16 @@
   margin: 0;
   padding: 0;
 }
+
+/*@media screen and (max-width: 1024px) {
+  .elements__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media screen and (max-width: 320px) {
+  .elements__cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}*/

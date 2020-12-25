@@ -1,6 +1,8 @@
 .elements__card {
   background-color: #ffffff;
   display: grid;
+  grid-template-rows: 282px 1fr;
   border-radius: 10px;
   box-sizing: border-box;
+  overflow: hidden;
 }
