@@ -19,7 +19,7 @@
 @import url("../blocks/elements/__card-description/elements__card-description.css");
 @import url("../blocks/elements/__card-title/elements__card-title.css");
 @import url("../blocks/elements/__card-like/elements__card-like.css");
-@import url("../blocks/elements/__card-like-checkbox/elements__card-like-checkbox.css");
+@import url("../blocks/elements/__card-like-button/elements__card-like-button.css");
 @import url("../blocks/elements/__card-like-visible/elements__card-like-visible.css");
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/popup/popup.css");

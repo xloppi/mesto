@@ -5,11 +5,11 @@
   flex-direction: column;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 45px 19px 60px;
+  padding: 45px 19px 0;
 }
 
 @media screen and (max-width: 768px) {
   .page__container {
-    padding: 28px 19px 60px;
+    padding: 28px 19px 0;
   }
 }
