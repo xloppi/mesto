@@ -5,12 +5,15 @@
   font-size: 18px;
   line-height: 22px;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 768px) {
   .profile__subtitle {
     font-size: 14px;
     line-height: 17px;
-    justify-self: center;
+    text-align: center;
   }
 }
