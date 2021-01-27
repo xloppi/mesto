@@ -27,17 +27,26 @@ const initialCards = [
 
 const cardTemplate = document.querySelector(".elements__card_template").content;
 const listCards = document.querySelector(".elements__cards");
-let openButton = document.querySelector(".profile__edit-button");
+let editProfileButton = document.querySelector(".profile__edit-button");
+const addPlaceButton = document.querySelector(".profile__add-button");
+const popupEditProfile = document.querySelector(".popup_edit-profile");
+const popupAddPlace = document.querySelector(".popup_add-place");
 let popup = document.querySelector(".popup");
 let closeButton = popup.querySelector(".popup__close");
+const editProfileCloseButton = popupEditProfile.querySelector(".popup__close_edit-profile");
+const addPlaceCloseButton = popupAddPlace.querySelector(".popup__close_add-place");
 let profileTitle = document.querySelector(".profile__title");
 let profileSubtitle = document.querySelector(".profile__subtitle");
-let formElement = popup.querySelector(".popup__form");
-let nameInput = formElement.querySelector(".popup__input_type_name");
-let jobInput = formElement.querySelector(".popup__input_type_job");
+/*let formElement = popup.querySelector(".popup__form");*/
+const formEditProfile = popupEditProfile.querySelector(".popup__form_profile-edit");
+const formAddPlace = popupAddPlace.querySelector(".popup__form_add-place");
+let nameInput = popupEditProfile.querySelector(".popup__input_type_name");
+let jobInput = popupEditProfile.querySelector(".popup__input_type_job");
+const namePlaceInput = popupAddPlace.querySelector(".popup__input_type_place");
+const linkPlaceInput = popupAddPlace.querySelector(".popup__input_type_link");
 
 
-function togglePopup () {
+/*function togglePopup () {
   popup.classList.toggle('popup_display_flex');
 
   if (popup.classList.contains('popup_display_flex')) {
@@ -46,7 +55,8 @@ function togglePopup () {
   }
 }
 
-openButton.addEventListener('click',togglePopup)
+editProfileButton.addEventListener('click',togglePopup)
+addPlaceButton.addEventListener('click',togglePopup)
 closeButton.addEventListener('click',togglePopup)
 
 popup.addEventListener('click', (event) => {
@@ -63,7 +73,7 @@ function handleFormSubmit (evt) {
     togglePopup ();
 }
 
-formElement.addEventListener('submit', handleFormSubmit);
+formElement.addEventListener('submit', handleFormSubmit);*/
 
 //код проектной работы №5
 
@@ -75,7 +85,74 @@ function renderCard (card) {
   const htmlCard = cardTemplate.cloneNode(true);
   htmlCard.querySelector(".elements__card-image").setAttribute("src", card.link);
   htmlCard.querySelector(".elements__card-title").innerText = card.name;
-  listCards.appendChild(htmlCard);
+  listCards.prepend(htmlCard);
 }
+
+function toggle (elem) {
+  elem.classList.toggle('popup_display_flex');
+}
+
+/*function togglePopup (event) {
+  if (event.target === editProfileButton || event.target === editProfileCloseButton || event.target === popupEditProfile || event.target === formEditProfile) {
+    toggle (popupEditProfile);
+    if (popupEditProfile.classList.contains('popup_display_flex')) {
+      nameInput.value = profileTitle.textContent;
+      jobInput.value = profileSubtitle.textContent;
+    }
+  }
+  else if(event.target === addPlaceButton  || event.target === addPlaceCloseButton || event.target === popupAddPlace) {
+    toggle (popupAddPlace);
+  }
+}*/
+
+function togglePopupEditProfile () {
+  toggle (popupEditProfile);
+  if (popupEditProfile.classList.contains('popup_display_flex')) {
+    nameInput.value = profileTitle.textContent;
+    jobInput.value = profileSubtitle.textContent;
+  }
+}
+
+function togglePopupAddPlace () {
+  toggle (popupAddPlace);
+}
+
+editProfileButton.addEventListener('click',togglePopupEditProfile);
+addPlaceButton.addEventListener('click',togglePopupAddPlace);
+editProfileCloseButton.addEventListener('click',togglePopupEditProfile);
+addPlaceCloseButton.addEventListener('click',togglePopupAddPlace);
+
+
+popupEditProfile.addEventListener('click', (event) => {
+  if (event.target === event.currentTarget) {
+    togglePopupEditProfile();
+  }
+})
+
+popupAddPlace.addEventListener('click', (event) => {
+  if (event.target === event.currentTarget) {
+    togglePopupAddPlace();
+  }
+})
+
+function handleEditProfileSubmit (event) {
+  event.preventDefault();
+  profileTitle.textContent = nameInput.value;
+  profileSubtitle.textContent = jobInput.value;
+  togglePopup (event);
+}
+
+function handleAddPlaceSubmit (event) {
+  event.preventDefault();
+  let place = [];
+  place.name = namePlaceInput.value;
+  place.link = linkPlaceInput.value;
+  renderCard (place);
+  togglePopupAddPlace ();
+
+}
+
+formEditProfile.addEventListener('submit', handleEditProfileSubmit);
+formAddPlace.addEventListener('submit', handleAddPlaceSubmit);
 
 render();
