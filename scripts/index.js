@@ -86,7 +86,12 @@ function renderCard (card) {
   htmlCard.querySelector(".elements__card-image").setAttribute("src", card.link);
   htmlCard.querySelector(".elements__card-title").innerText = card.name;
   htmlCard.querySelector(".elements__card-like-button").addEventListener('click',toggleLike)
+  htmlCard.querySelector(".elements__card-delete-button").addEventListener('click',deleteCard)
   listCards.prepend(htmlCard);
+}
+
+function deleteCard(event) {
+  event.target.closest('.elements__card').remove();
 }
 
 function toggleLike(event) {
