@@ -85,25 +85,17 @@ function renderCard (card) {
   const htmlCard = cardTemplate.cloneNode(true);
   htmlCard.querySelector(".elements__card-image").setAttribute("src", card.link);
   htmlCard.querySelector(".elements__card-title").innerText = card.name;
+  htmlCard.querySelector(".elements__card-like-button").addEventListener('click',toggleLike)
   listCards.prepend(htmlCard);
+}
+
+function toggleLike(event) {
+  event.target.classList.toggle('elements__card-like-button_active');
 }
 
 function toggle (elem) {
   elem.classList.toggle('popup_display_flex');
 }
-
-/*function togglePopup (event) {
-  if (event.target === editProfileButton || event.target === editProfileCloseButton || event.target === popupEditProfile || event.target === formEditProfile) {
-    toggle (popupEditProfile);
-    if (popupEditProfile.classList.contains('popup_display_flex')) {
-      nameInput.value = profileTitle.textContent;
-      jobInput.value = profileSubtitle.textContent;
-    }
-  }
-  else if(event.target === addPlaceButton  || event.target === addPlaceCloseButton || event.target === popupAddPlace) {
-    toggle (popupAddPlace);
-  }
-}*/
 
 function togglePopupEditProfile () {
   toggle (popupEditProfile);
@@ -139,7 +131,7 @@ function handleEditProfileSubmit (event) {
   event.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-  togglePopup (event);
+  togglePopupEditProfile ();
 }
 
 function handleAddPlaceSubmit (event) {
