@@ -34,12 +34,12 @@ const popupAddPlace = document.querySelector(".popup_add-place");
 const popupViewing = document.querySelector(".popup_viewing-place-photo");
 const editProfileCloseButton = popupEditProfile.querySelector(".popup__close_edit-profile");
 const addPlaceCloseButton = popupAddPlace.querySelector(".popup__close_add-place");
-let profileTitle = document.querySelector(".profile__title");
-let profileSubtitle = document.querySelector(".profile__subtitle");
+const profileTitle = document.querySelector(".profile__title");
+const profileSubtitle = document.querySelector(".profile__subtitle");
 const formEditProfile = popupEditProfile.querySelector(".popup__form_profile-edit");
 const formAddPlace = popupAddPlace.querySelector(".popup__form_add-place");
-let nameInput = popupEditProfile.querySelector(".popup__input_type_name");
-let jobInput = popupEditProfile.querySelector(".popup__input_type_job");
+const nameInput = popupEditProfile.querySelector(".popup__input_type_name");
+const jobInput = popupEditProfile.querySelector(".popup__input_type_job");
 const namePlaceInput = popupAddPlace.querySelector(".popup__input_type_place");
 const linkPlaceInput = popupAddPlace.querySelector(".popup__input_type_link");
 
