@@ -1,3 +1,4 @@
 .popup_display_flex {
-  display: flex;
+  visibility: visible;
+  opacity: 1;
 }
