@@ -11,6 +11,7 @@
   height: 20px;
   background-image: url('../../../images/elements/trash.svg');
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .elements__card-delete-button:focus {
