@@ -26,48 +26,7 @@
 
       <section class="elements content__elements">
         <ul class="elements__cards">
-          <li class="elements__card">
-            <img class="elements__card-image" src="./images/elements/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
-            <div class="elements__card-description">
-              <h2 class="elements__card-title">Карачаевск</h2>
-              <button type="button" class="elements__card-like-button"></button>
-            </div>
-          </li>
-          <li class="elements__card">
-            <img class="elements__card-image" src="./images/elements/kirill-pershin-1404681-unsplash.jpg" alt="Гора Эльбрус">
-            <div class="elements__card-description">
-              <h2 class="elements__card-title">Гора Эльбрус</h2>
-              <button type="button" class="elements__card-like-button"></button>
-            </div>
-          </li>
-          <li class="elements__card">
-            <img class="elements__card-image" src="./images/elements/kirill-pershin-1556355-unsplash.jpg" alt="Домбай">
-            <div class="elements__card-description">
-              <h2 class="elements__card-title">Домбай</h2>
-              <button type="button" class="elements__card-like-button"></button>
-            </div>
-          </li>
-          <li class="elements__card">
-            <img class="elements__card-image" src="./images/elements/kirill-pershin-1404681-unsplash.jpg" alt="Гора Эльбрус">
-            <div class="elements__card-description">
-              <h2 class="elements__card-title">Гора Эльбрус</h2>
-              <button type="button" class="elements__card-like-button"></button>
-            </div>
-          </li>
-          <li class="elements__card">
-            <img class="elements__card-image" src="./images/elements/kirill-pershin-1556355-unsplash.jpg" alt="Домбай">
-            <div class="elements__card-description">
-              <h2 class="elements__card-title">Домбай</h2>
-              <button type="button" class="elements__card-like-button"></button>
-            </div>
-          </li>
-          <li class="elements__card">
-            <img class="elements__card-image" src="./images/elements/kirill-pershin-1088404-unsplash.jpg" alt="Карачаево-Черкесия">
-            <div class="elements__card-description">
-              <h2 class="elements__card-title">Карачаево-Черкесия</h2>
-              <button type="button" class="elements__card-like-button"></button>
-            </div>
-          </li>
+
         </ul>
       </section>
 
@@ -76,19 +35,55 @@
       <p class="footer__copyrigth">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <section class="popup">
+    <section class="popup popup_edit-profile">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="profile-edit" class="popup__form">
+        <form name="profile-edit" class="popup__form popup__form_profile-edit">
           <fieldset class="popup__fieldset">
             <input type="text" name="name-edit" class="popup__input popup__input_type_name">
             <input type="text" name="job-edit" class="popup__input popup__input_type_job">
           </fieldset>
           <button type="submit" class="popup__submit">Сохранить</button>
         </form>
-        <button type="button" class="popup__close"></button>
+        <button type="button" class="popup__close popup__close_edit-profile"></button>
       </div>
     </section>
+
+    <section class="popup popup_add-place">
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <form name="add-place" class="popup__form popup__form_add-place">
+          <fieldset class="popup__fieldset">
+            <input type="text" name="name-mesto-edit" class="popup__input popup__input_type_place" placeholder="Название">
+            <input type="text" name="link-mesto-edit" class="popup__input popup__input_type_link" placeholder="Ссылка на картинку">
+          </fieldset>
+          <button type="submit" class="popup__submit">Создать</button>
+        </form>
+        <button type="button" class="popup__close popup__close_add-place"></button>
+      </div>
+    </section>
+
+    <section class="popup popup_viewing-place-photo">
+      <div class="popup__container-photo">
+        <figure class="popup__figure">
+          <img class="popup__photo-image" src="#" alt="#">
+          <figcaption class="popup__photo-caption"></figcaption>
+          </figure>
+        <button type="button" class="popup__close popup__close_place-photo"></button>
+      </div>
+    </section>
+
+    <template class="elements__card_template">
+      <li class="elements__card">
+        <img class="elements__card-image" src="#" alt="#">
+        <div class="elements__card-description">
+          <h2 class="elements__card-title"></h2>
+          <button type="button" class="elements__card-like-button"></button>
+        </div>
+        <button type="button" class="elements__card-delete-button"></button>
+      </li>
+    </template>
+
   </div>
 <script src="./scripts/index.js"></script>
 </body>

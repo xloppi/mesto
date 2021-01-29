@@ -8,6 +8,7 @@
   height: 18px;
   background-image: url(../../../images/elements/like.svg);
   transition: opacity 0.3s;
+  cursor: pointer;
 }
 
 .elements__card-like-button:focus {
