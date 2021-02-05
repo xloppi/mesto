@@ -38,10 +38,12 @@
     <section class="popup popup_edit-profile">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="profile-edit" class="popup__form popup__form_profile-edit">
+        <form name="profile-edit" class="popup__form popup__form_profile-edit" novalidate>
           <fieldset class="popup__fieldset">
-            <input type="text" name="name-edit" class="popup__input popup__input_type_name">
-            <input type="text" name="job-edit" class="popup__input popup__input_type_job">
+            <input type="text" name="name-edit" id="name-input" class="popup__input popup__input_type_name" minlength="2" maxlength="40" required>
+            <span class="popup__input-error name-input-error"></span>
+            <input type="text" name="job-edit" id="job-input" class="popup__input popup__input_type_job" minlength="2" maxlength="200" required>
+            <span class="popup__input-error job-input-error"></span>
           </fieldset>
           <button type="submit" class="popup__submit">Сохранить</button>
         </form>
@@ -52,10 +54,12 @@
     <section class="popup popup_add-place">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
-        <form name="add-place" class="popup__form popup__form_add-place">
+        <form name="add-place" class="popup__form popup__form_add-place" novalidate>
           <fieldset class="popup__fieldset">
-            <input type="text" name="name-mesto-edit" class="popup__input popup__input_type_place" placeholder="Название">
-            <input type="text" name="link-mesto-edit" class="popup__input popup__input_type_link" placeholder="Ссылка на картинку">
+            <input type="text" name="name-mesto-edit" id="name-mesto-input" class="popup__input popup__input_type_place" placeholder="Название" minlength="2" maxlength="20" required>
+            <span class="popup__input-error name-mesto-input-error"></span>
+            <input type="url" name="link-mesto-edit" id="link-mesto-input" class="popup__input popup__input_type_link" placeholder="Ссылка на картинку" required>
+            <span class="popup__input-error link-mesto-input-error"></span>
           </fieldset>
           <button type="submit" class="popup__submit">Создать</button>
         </form>
@@ -86,5 +90,6 @@
 
   </div>
 <script src="./scripts/index.js"></script>
+<script src="./scripts/validate.js"></script>
 </body>
 </html>
