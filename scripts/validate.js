@@ -51,8 +51,6 @@ const enableValidation = (settingObject) => {
   formList.forEach((formElement) => {
       formElement.addEventListener('submit', function (evt) {
         evt.preventDefault();
-        const inputList = Array.from(formElement.querySelectorAll(settingObject.inputSelector));
-        if (hasInvalidInput (inputList)) {return false};
     });
       setEventListeners(formElement, settingObject);
   });
