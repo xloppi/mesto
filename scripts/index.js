@@ -149,5 +149,4 @@ formEditProfile.addEventListener('submit', handleEditProfileSubmit);
 formAddPlace.addEventListener('submit', handleAddPlaceSubmit);
 
 
-
 render();
