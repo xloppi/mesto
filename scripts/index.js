@@ -46,7 +46,7 @@ const namePlaceInput = popupAddPlace.querySelector(".popup__input_type_place");
 const linkPlaceInput = popupAddPlace.querySelector(".popup__input_type_link");
 
 
-function render() {
+/*function render() {
   initialCards.forEach(renderCard);
 }
 
@@ -74,11 +74,13 @@ function handledeleteCard (event) {
 function toggleLike (event) {
   event.target.classList.toggle('elements__card-like-button_active');
 }
+*/
+import { Card } from './Card.js'
 
-function popupViewingPlace (card) {
-  popupViewingPhoto.setAttribute("src", card.link);
-  popupViewingPhoto.setAttribute("alt", card.name);
-  popupViewingCaption.innerText = card.name;
+function popupViewingPlace (name, link) {
+  popupViewingPhoto.setAttribute("src", link);
+  popupViewingPhoto.setAttribute("alt", name);
+  popupViewingCaption.innerText = name;
   togglePopup(popupViewing);
 }
 
@@ -149,4 +151,8 @@ formEditProfile.addEventListener('submit', handleEditProfileSubmit);
 formAddPlace.addEventListener('submit', handleAddPlaceSubmit);
 
 
-render();
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.link, ".elements__card_template", popupViewingPlace);
+  const htmlCard = card.createCard();
+  listCards.prepend(htmlCard);
+});
