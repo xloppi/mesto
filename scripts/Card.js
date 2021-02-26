@@ -2,6 +2,7 @@ export class Card {
   _template
   _nameCard
   _urlCard
+  //123456
 
   constructor(name, url, template, popupViewingPlace) {
     this._template = document.querySelector(template);
