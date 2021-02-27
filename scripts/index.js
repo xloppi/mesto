@@ -45,8 +45,16 @@ const jobInput = popupEditProfile.querySelector(".popup__input_type_job");
 const namePlaceInput = popupAddPlace.querySelector(".popup__input_type_place");
 const linkPlaceInput = popupAddPlace.querySelector(".popup__input_type_link");
 
+const settignsValidation = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+}
 
-function render() {
+/*function render() {
   initialCards.forEach(renderCard);
 }
 
@@ -74,11 +82,24 @@ function handledeleteCard (event) {
 function toggleLike (event) {
   event.target.classList.toggle('elements__card-like-button_active');
 }
+*/
+import { Card } from './Card.js'
+import { FormValidator } from './FormValidator.js'
 
-function popupViewingPlace (card) {
-  popupViewingPhoto.setAttribute("src", card.link);
-  popupViewingPhoto.setAttribute("alt", card.name);
-  popupViewingCaption.innerText = card.name;
+function render() {
+  initialCards.forEach(renderCard);
+}
+
+function renderCard (card) {
+  const elementcard = new Card(card, ".elements__card_template", popupViewingPlace);
+  const htmlCard = elementcard.createCard();
+  listCards.prepend(htmlCard);
+}
+
+function popupViewingPlace (name, link) {
+  popupViewingPhoto.setAttribute("src", link);
+  popupViewingPhoto.setAttribute("alt", name);
+  popupViewingCaption.innerText = name;
   togglePopup(popupViewing);
 }
 
@@ -147,6 +168,12 @@ function togglePopup (elem) {
 
 formEditProfile.addEventListener('submit', handleEditProfileSubmit);
 formAddPlace.addEventListener('submit', handleAddPlaceSubmit);
+
+const formList = Array.from(document.querySelectorAll(settignsValidation.formSelector));
+formList.forEach((formElement) => {
+  const validation = new FormValidator(settignsValidation, formElement);
+  validation.enableValidation();
+});
 
 
 render();
