@@ -45,6 +45,14 @@ const jobInput = popupEditProfile.querySelector(".popup__input_type_job");
 const namePlaceInput = popupAddPlace.querySelector(".popup__input_type_place");
 const linkPlaceInput = popupAddPlace.querySelector(".popup__input_type_link");
 
+const settignsValidation = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+}
 
 /*function render() {
   initialCards.forEach(renderCard);
@@ -76,6 +84,17 @@ function toggleLike (event) {
 }
 */
 import { Card } from './Card.js'
+import { FormValidator } from './FormValidator.js'
+
+function render() {
+  initialCards.forEach(renderCard);
+}
+
+function renderCard (card) {
+  const elementcard = new Card(card, ".elements__card_template", popupViewingPlace);
+  const htmlCard = elementcard.createCard();
+  listCards.prepend(htmlCard);
+}
 
 function popupViewingPlace (name, link) {
   popupViewingPhoto.setAttribute("src", link);
@@ -150,9 +169,11 @@ function togglePopup (elem) {
 formEditProfile.addEventListener('submit', handleEditProfileSubmit);
 formAddPlace.addEventListener('submit', handleAddPlaceSubmit);
 
-
-initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, ".elements__card_template", popupViewingPlace);
-  const htmlCard = card.createCard();
-  listCards.prepend(htmlCard);
+const formList = Array.from(document.querySelectorAll(settignsValidation.formSelector));
+formList.forEach((formElement) => {
+  const validation = new FormValidator(settignsValidation, formElement);
+  validation.enableValidation();
 });
+
+
+render();

@@ -2,12 +2,11 @@ export class Card {
   _template
   _nameCard
   _urlCard
-  //123456
 
-  constructor(name, url, template, popupViewingPlace) {
+  constructor(card, template, popupViewingPlace) {
     this._template = document.querySelector(template);
-    this._nameCard = name;
-    this._urlCard = url;
+    this._nameCard = card.name;
+    this._urlCard = card.link;
     this._popupViewingPlace = popupViewingPlace;
   }
 
