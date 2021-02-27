@@ -1,3 +1,6 @@
+import { Card } from './Card.js'
+import { FormValidator } from './FormValidator.js'
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -25,7 +28,6 @@ const initialCards = [
   }
 ];
 
-const cardTemplate = document.querySelector(".elements__card_template").content;
 const listCards = document.querySelector(".elements__cards");
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addPlaceButton = document.querySelector(".profile__add-button");
@@ -53,38 +55,6 @@ const settignsValidation = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
 }
-
-/*function render() {
-  initialCards.forEach(renderCard);
-}
-
-function renderCard (card) {
-  const htmlCard = createCard(card);
-  listCards.prepend(htmlCard);
-}
-
-function createCard (card) {
-  const htmlCard = cardTemplate.cloneNode(true);
-  const htmlCardImage = htmlCard.querySelector(".elements__card-image");
-  htmlCardImage.setAttribute("src", card.link);
-  htmlCardImage.setAttribute("alt", card.name);
-  htmlCard.querySelector(".elements__card-title").innerText = card.name;
-  htmlCard.querySelector(".elements__card-like-button").addEventListener('click',toggleLike);
-  htmlCard.querySelector(".elements__card-delete-button").addEventListener('click',handledeleteCard);
-  htmlCardImage.addEventListener('click', () => popupViewingPlace(card));
-  return htmlCard;
-}
-
-function handledeleteCard (event) {
-  event.target.closest('.elements__card').remove();
-}
-
-function toggleLike (event) {
-  event.target.classList.toggle('elements__card-like-button_active');
-}
-*/
-import { Card } from './Card.js'
-import { FormValidator } from './FormValidator.js'
 
 function render() {
   initialCards.forEach(renderCard);
@@ -169,11 +139,15 @@ function togglePopup (elem) {
 formEditProfile.addEventListener('submit', handleEditProfileSubmit);
 formAddPlace.addEventListener('submit', handleAddPlaceSubmit);
 
-const formList = Array.from(document.querySelectorAll(settignsValidation.formSelector));
-formList.forEach((formElement) => {
+function validation() {
+  const formList = Array.from(document.querySelectorAll(settignsValidation.formSelector));
+  formList.forEach(formValidation)
+}
+
+function formValidation (formElement) {
   const validation = new FormValidator(settignsValidation, formElement);
   validation.enableValidation();
-});
+}
 
-
+validation();
 render();
