@@ -17,9 +17,10 @@ export class Card {
 
   createCard() {
     this._htmlCard = this._getTemplateCard();
+    this._cardImage = this._htmlCard.querySelector(".elements__card-image");
+    this._cardImage.src = this._urlCard;
+    this._cardImage.alt = this._nameCard;
     this._setEventListeners();
-    this._htmlCard.querySelector(".elements__card-image").src = this._urlCard;
-    this._htmlCard.querySelector(".elements__card-image").alt = this._nameCard;
     this._htmlCard.querySelector(".elements__card-title").innerText = this._nameCard;
     return this._htmlCard
   }
@@ -27,7 +28,7 @@ export class Card {
   _setEventListeners() {
     this._htmlCard.querySelector(".elements__card-like-button").addEventListener('click', this._toggleLike);
     this._htmlCard.querySelector(".elements__card-delete-button").addEventListener('click', this._handledeleteCard);
-    this._htmlCard.querySelector(".elements__card-image").addEventListener('click', () => {
+    this._cardImage.addEventListener('click', () => {
       this._popupViewingPlace(this._nameCard, this._urlCard);
     });
   }
