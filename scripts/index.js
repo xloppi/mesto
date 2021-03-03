@@ -88,18 +88,20 @@ addPlaceButton.addEventListener('click',() => {
   openPopup(popupAddPlace);
 });
 
-popups.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-      if (evt.target.classList.contains('popup_display_flex')) {
+function PopupsClose() {
+  popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('popup_display_flex')) {
+            closePopup(popup);
+        }
+        if (evt.target.classList.contains('popup__close')) {
           closePopup(popup);
-      }
-      if (evt.target.classList.contains('popup__close')) {
-        closePopup(popup);
-      }
+        }
+    });
   });
-});
+}
 
-popupViewing.querySelector(".popup__close_place-photo").addEventListener('click', () => closePopup(popupViewing))
+PopupsClose();
 
 function handleEditProfileSubmit (event) {
   event.preventDefault();
@@ -119,6 +121,9 @@ function handleAddPlaceSubmit (event) {
   closePopup(popupAddPlace);
 
 }
+
+formEditProfile.addEventListener('submit', handleEditProfileSubmit);
+formAddPlace.addEventListener('submit', handleAddPlaceSubmit);
 
 function closePopupEscButton (event) {
   if (event.keyCode === 27) {
@@ -144,8 +149,5 @@ function closePopup (popup) {
   popup.classList.remove('popup_display_flex');
   document.removeEventListener('keydown', closePopupEscButton);
 }
-
-formEditProfile.addEventListener('submit', handleEditProfileSubmit);
-formAddPlace.addEventListener('submit', handleAddPlaceSubmit);
 
 render();
