@@ -1,5 +1,6 @@
 import { Card } from './Card.js'
 import { FormValidator } from './FormValidator.js'
+import  Section  from './Section.js'
 
 const initialCards = [
   {
@@ -36,7 +37,7 @@ const settignsValidation = {
   errorClass: 'popup__input-error_active'
 }
 
-const listCards = document.querySelector(".elements__cards");
+const listCards = ".elements__cards";
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addPlaceButton = document.querySelector(".profile__add-button");
 const popupEditProfile = document.querySelector(".popup_edit-profile");
@@ -57,7 +58,19 @@ const popups = document.querySelectorAll('.popup')
 const formEditProfileValidation = new FormValidator(settignsValidation, formEditProfile);
 const formAddPlaceValidation = new FormValidator(settignsValidation, formAddPlace);
 
-function render() {
+const cardsList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const elementcard = new Card(item, ".elements__card_template", popupViewingPlace);
+    const htmlCard = elementcard.createCard();
+    cardsList.addItem(htmlCard);
+    },
+  },
+  listCards
+);
+
+
+/*function render() {
   initialCards.forEach(renderCard);
 }
 
@@ -65,7 +78,7 @@ function renderCard (card) {
   const elementcard = new Card(card, ".elements__card_template", popupViewingPlace);
   const htmlCard = elementcard.createCard();
   listCards.prepend(htmlCard);
-}
+}*/
 
 function popupViewingPlace (name, link) {
   popupViewingPhoto.setAttribute("src", link);
@@ -150,4 +163,4 @@ function closePopup (popup) {
   document.removeEventListener('keydown', closePopupEscButton);
 }
 
-render();
+cardsList.renderItems();
