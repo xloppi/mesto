@@ -2,42 +2,12 @@ import { Card } from './Card.js'
 import { FormValidator } from './FormValidator.js'
 import  Section  from './Section.js'
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+import {
+  initialCards,
+  settignsValidation,
+  listCards
+} from '../utils/constants.js'
 
-const settignsValidation = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-}
-
-const listCards = ".elements__cards";
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addPlaceButton = document.querySelector(".profile__add-button");
 const popupEditProfile = document.querySelector(".popup_edit-profile");
@@ -69,17 +39,6 @@ const cardsList = new Section({
   listCards
 );
 
-
-/*function render() {
-  initialCards.forEach(renderCard);
-}
-
-function renderCard (card) {
-  const elementcard = new Card(card, ".elements__card_template", popupViewingPlace);
-  const htmlCard = elementcard.createCard();
-  listCards.prepend(htmlCard);
-}*/
-
 function popupViewingPlace (name, link) {
   popupViewingPhoto.setAttribute("src", link);
   popupViewingPhoto.setAttribute("alt", name);
@@ -101,7 +60,7 @@ addPlaceButton.addEventListener('click',() => {
   openPopup(popupAddPlace);
 });
 
-function PopupsClose() {
+/*function PopupsClose() {
   popups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
         if (evt.target.classList.contains('popup_display_flex')) {
@@ -112,7 +71,7 @@ function PopupsClose() {
         }
     });
   });
-}
+}*/
 
 PopupsClose();
 
@@ -144,16 +103,7 @@ function closePopupEscButton (event) {
   }
 }
 
-/*function togglePopup (elem) {
-  elem.classList.toggle('popup_display_flex');
-  if (elem.classList.contains('popup_display_flex')) {
-    document.addEventListener('keydown', closePopupEscButton);
-  } else {
-    document.removeEventListener('keydown', closePopupEscButton);
-  }
-}*/
-
-function openPopup (popup) {
+/*function openPopup (popup) {
   popup.classList.add('popup_display_flex');
   document.addEventListener('keydown', closePopupEscButton);
 }
@@ -161,6 +111,6 @@ function openPopup (popup) {
 function closePopup (popup) {
   popup.classList.remove('popup_display_flex');
   document.removeEventListener('keydown', closePopupEscButton);
-}
+}*/
 
 cardsList.renderItems();
