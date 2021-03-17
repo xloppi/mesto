@@ -5,25 +5,24 @@ export default class Popup {
 
   open() {
     this._popup.classList.add('popup_display_flex');
-    document.addEventListener('keydown', this._handleEscClose);
+    document.addEventListener('keydown', this._handleEscClose.bind(this));
   }
 
   close() {
     this._popup.classList.remove('popup_display_flex');
-    document.removeEventListener('keydown', this._handleEscClose);
+    document.removeEventListener('keydown', this._handleEscClose.bind(this));
   }
 
-  _handleEscClose() {
-
-  }
+  _handleEscClose(event) {
+      if (event.keyCode === 27) {
+        this.close();
+      }
+    }
 
   setEventListeners() {
     this._popup.addEventListener('click', (evt) => {
-      if (evt.target.classList.contains('popup_display_flex')) {
-          closePopup(popup);
-      }
       if (evt.target.classList.contains('popup__close')) {
-        closePopup(popup);
+        this.close();
       }
   });
   }
