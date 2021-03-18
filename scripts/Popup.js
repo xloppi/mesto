@@ -24,6 +24,9 @@ export default class Popup {
       if (evt.target.classList.contains('popup__close')) {
         this.close();
       }
+      if (evt.target === evt.currentTarget) {
+        this.close();
+      }
   });
   }
 
