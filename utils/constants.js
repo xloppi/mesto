@@ -34,3 +34,9 @@ export const settignsValidation = {
 }
 
 export const listCards = ".elements__cards";
+export const editProfileButton = document.querySelector(".profile__edit-button");
+export const addPlaceButton = document.querySelector(".profile__add-button");
+export const formEditProfile = document.querySelector(".popup__form_profile-edit");
+export const formAddPlace = document.querySelector(".popup__form_add-place");
+export const nameInput = document.querySelector(".popup__input_type_name");
+export const jobInput = document.querySelector(".popup__input_type_job");

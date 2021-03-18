@@ -1,3 +1,4 @@
+import '../pages/index.css'
 import { Card } from './Card.js'
 import { FormValidator } from './FormValidator.js'
 import Section from './Section.js'
@@ -8,16 +9,14 @@ import UserInfo from './UserInfo.js'
 import {
   initialCards,
   settignsValidation,
-  listCards
+  listCards,
+  editProfileButton,
+  addPlaceButton,
+  formEditProfile,
+  formAddPlace,
+  nameInput,
+  jobInput
 } from '../utils/constants.js'
-
-
-const editProfileButton = document.querySelector(".profile__edit-button");
-const addPlaceButton = document.querySelector(".profile__add-button");
-const formEditProfile = document.querySelector(".popup__form_profile-edit");
-const formAddPlace = document.querySelector(".popup__form_add-place");
-const nameInput = document.querySelector(".popup__input_type_name");
-const jobInput = document.querySelector(".popup__input_type_job");
 
 const formEditProfileValidation = new FormValidator(settignsValidation, formEditProfile);
 const formAddPlaceValidation = new FormValidator(settignsValidation, formAddPlace);
