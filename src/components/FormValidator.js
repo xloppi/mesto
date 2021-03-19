@@ -1,11 +1,4 @@
-export class FormValidator {
-  _form
-  _input
-  _submitButton
-  _inactiveButton
-  _inputError
-  _error
-
+export default class FormValidator {
   constructor(settignsValidation, form) {
     this._form = form;
     this._input = settignsValidation.inputSelector;

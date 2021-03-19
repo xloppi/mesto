@@ -1,13 +1,9 @@
-export class Card {
-  _template
-  _nameCard
-  _urlCard
-
-  constructor(card, template, popupViewingPlace) {
+export default class Card {
+  constructor(card, template, handleCardClick) {
     this._template = document.querySelector(template);
     this._nameCard = card.name;
     this._urlCard = card.link;
-    this._popupViewingPlace = popupViewingPlace;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplateCard() {
@@ -29,7 +25,7 @@ export class Card {
     this._htmlCard.querySelector(".elements__card-like-button").addEventListener('click', this._toggleLike);
     this._htmlCard.querySelector(".elements__card-delete-button").addEventListener('click', this._handledeleteCard);
     this._cardImage.addEventListener('click', () => {
-      this._popupViewingPlace(this._nameCard, this._urlCard);
+      this._handleCardClick(this._nameCard, this._urlCard);
     });
   }
 

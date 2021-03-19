@@ -4,14 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
   <div class="page__container">
     <header class="header">
       <img class="header__logo" src="./images/logo.svg" alt="логотип страницы Место">
     </header>
-
     <main class="content page__content">
       <section class="profile">
           <img class="profile__avatar" src="./images/avatar.jpg" alt="аватарка">
@@ -40,9 +38,9 @@
         <h2 class="popup__title">Редактировать профиль</h2>
         <form name="profile-edit" class="popup__form popup__form_profile-edit" novalidate>
           <fieldset class="popup__fieldset">
-            <input type="text" name="name-edit" id="name-input" class="popup__input popup__input_type_name" required minlength="2" maxlength="40">
+            <input type="text" name="name" id="name-input" class="popup__input popup__input_type_name" required minlength="2" maxlength="40">
             <span class="popup__input-error name-input-error"></span>
-            <input type="text" name="job-edit" id="job-input" class="popup__input popup__input_type_job"  required minlength="2" maxlength="200">
+            <input type="text" name="job" id="job-input" class="popup__input popup__input_type_job"  required minlength="2" maxlength="200">
             <span class="popup__input-error job-input-error"></span>
           </fieldset>
           <button type="submit" class="popup__submit">Сохранить</button>
@@ -56,9 +54,9 @@
         <h2 class="popup__title">Новое место</h2>
         <form name="add-place" class="popup__form popup__form_add-place" novalidate>
           <fieldset class="popup__fieldset">
-            <input type="text" name="name-mesto-edit" id="name-mesto-input" class="popup__input popup__input_type_place" placeholder="Название" required minlength="2" maxlength="20">
+            <input type="text" name="name" id="name-mesto-input" class="popup__input popup__input_type_place" placeholder="Название" required minlength="2" maxlength="20">
             <span class="popup__input-error name-mesto-input-error"></span>
-            <input type="url" name="link-mesto-edit" id="link-mesto-input" class="popup__input popup__input_type_link" required placeholder="Ссылка на картинку">
+            <input type="url" name="link" id="link-mesto-input" class="popup__input popup__input_type_link" required placeholder="Ссылка на картинку">
             <span class="popup__input-error link-mesto-input-error"></span>
           </fieldset>
           <button type="submit" class="popup__submit">Создать</button>
@@ -89,8 +87,5 @@
     </template>
 
   </div>
-<script type="module" src="./scripts/index.js"></script>
-<script type="module" src="./scripts/Card.js"></script>
-<script type="module" src="./scripts/FormValidator.js"></script>
 </body>
 </html>
