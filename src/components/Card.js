@@ -1,8 +1,4 @@
-export class Card {
-  _template
-  _nameCard
-  _urlCard
-
+export default class Card {
   constructor(card, template, handleCardClick) {
     this._template = document.querySelector(template);
     this._nameCard = card.name;

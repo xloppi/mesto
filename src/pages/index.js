@@ -1,10 +1,10 @@
-import '../pages/index.css'
-import { Card } from './Card.js'
-import { FormValidator } from './FormValidator.js'
-import Section from './Section.js'
-import PopupWithForm from './PopupWithForm.js'
-import PopupWithImage from './PopupWithImage.js'
-import UserInfo from './UserInfo.js'
+import './index.css'
+import Card from '../components/Card.js'
+import FormValidator from '../components/FormValidator.js'
+import Section from '../components/Section.js'
+import PopupWithForm from '../components/PopupWithForm.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+import UserInfo from '../components/UserInfo.js'
 
 import {
   initialCards,
@@ -54,7 +54,6 @@ const popupViewing = new PopupWithImage(".popup_viewing-place-photo");
 
 function handleCardClick (name, link) {
   popupViewing.open(name, link);
-  popupViewing.setEventListeners();
 }
 
 editProfileButton.addEventListener('click',() => {
@@ -64,14 +63,12 @@ editProfileButton.addEventListener('click',() => {
   formEditProfileValidation.enableValidation();
   formEditProfileValidation.resetValidation();
   popupEditProfile.open();
-  popupEditProfile.setEventListeners();
 })
 
 addPlaceButton.addEventListener('click',() => {
   formAddPlaceValidation.enableValidation();
   formAddPlaceValidation.resetValidation();
   popupAddPlace.open();
-  popupAddPlace.setEventListeners();
 });
 
 cardsList.renderItems();
