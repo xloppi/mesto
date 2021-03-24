@@ -6,7 +6,10 @@
   border: 0;
   min-width: 20px;
   height: 18px;
+  padding: 0;
   background-image: url(../../../images/elements/like.svg);
+  background-repeat: no-repeat;
+  background-position: center;
   transition: opacity 0.3s;
   cursor: pointer;
 }

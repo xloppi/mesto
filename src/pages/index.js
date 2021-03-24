@@ -46,13 +46,15 @@ api.getInitialCards()
         cardsList.addItem(generateCard(item));
         },
       },
-      listCards
+      listCards,
+      api
     );
     cardsList.renderItems()
   })
   .catch((err) => {
     console.log('Ошибка: ', err);
   });
+
 
 api.getUserInfo()
   .then(data => {
@@ -79,7 +81,8 @@ popupEditProfile.setEventListeners();
 const popupAddPlace = new PopupWithForm({
   handleFormSubmit: (formData) => {
     api.addPlaceTask(formData)
-      .then(res => {
+      .then((res) => {
+        console.log(res)
         cardsList.addItem(generateCard(res));
       })
       .catch((err) => {

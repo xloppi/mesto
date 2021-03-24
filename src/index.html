@@ -75,12 +75,37 @@
       </div>
     </section>
 
+    <section class="popup ">
+      <div class="popup__container">
+        <h2 class="popup__title">Вы уверены?</h2>
+        <button type="button" class="popup__submit">Да</button>
+        <button type="button" class="popup__close popup__close_delete-card"></button>
+      </div>
+    </section>
+
+    <section class="popup popup_update-avatar">
+      <div class="popup__container">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form name="add-place" class="popup__form popup__form_add-place" novalidate>
+          <fieldset class="popup__fieldset">
+            <input type="url" name="link" id="link-mesto-input" class="popup__input popup__input_type_link" required placeholder="Ссылка на аватар">
+            <span class="popup__input-error link-mesto-input-error"></span>
+          </fieldset>
+          <button type="submit" class="popup__submit">Сохранить</button>
+        </form>
+        <button type="button" class="popup__close popup__close_add-place"></button>
+      </div>
+    </section>
+
     <template class="elements__card_template">
       <li class="elements__card">
         <img class="elements__card-image" src="#" alt="#">
         <div class="elements__card-description">
           <h2 class="elements__card-title"></h2>
-          <button type="button" class="elements__card-like-button"></button>
+          <div class="elements__card-like-section">
+            <button type="button" class="elements__card-like-button"></button>
+            <p class="elements__card-like-counter">1</p>
+          </div>
         </div>
         <button type="button" class="elements__card-delete-button"></button>
       </li>
