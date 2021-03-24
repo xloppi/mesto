@@ -15,8 +15,9 @@ import {
   addPlaceButton,
   formEditProfile,
   formAddPlace,
+  userAvatar,
   nameInput,
-  jobInput
+  aboutInput
 } from '../utils/constants.js'
 
 const formEditProfileValidation = new FormValidator(settignsValidation, formEditProfile);
@@ -39,7 +40,6 @@ function generateCard(item) {
 
 api.getInitialCards()
   .then(data => {
-    console.log(data);
     const cardsList = new Section({
       items: data,
       renderer: (item) => {
@@ -48,12 +48,28 @@ api.getInitialCards()
       },
       listCards
     );
-    cardsList.renderItems();
+    cardsList.renderItems()
   })
+  .catch((err) => {
+    console.log('Ошибка: ', err);
+  });
+
+api.getUserInfo()
+  .then(data => {
+    user.setUserInfo(data);
+    userAvatar.src = data.avatar;
+  })
+
 
 const popupEditProfile = new PopupWithForm({
   handleFormSubmit: (formData) => {
-    user.setUserInfo(formData);
+    api.editProfileTask(formData)
+      .then(formData => {
+        user.setUserInfo(formData)
+      })
+      .catch((err) => {
+        console.log('Ошибка: ', err);
+      })
   },
   popupSelector: ".popup_edit-profile"
 });
@@ -62,7 +78,13 @@ popupEditProfile.setEventListeners();
 
 const popupAddPlace = new PopupWithForm({
   handleFormSubmit: (formData) => {
-    cardsList.addItem(generateCard(formData));
+    api.addPlaceTask(formData)
+      .then(res => {
+        cardsList.addItem(generateCard(res));
+      })
+      .catch((err) => {
+        console.log('Ошибка: ', err);
+      })
   },
   popupSelector:".popup_add-place"
 });
@@ -76,7 +98,7 @@ popupViewing.setEventListeners();
 editProfileButton.addEventListener('click',() => {
   const userInfoInputs = user.getUserInfo();
   nameInput.value = userInfoInputs.name;
-  jobInput.value = userInfoInputs.job;
+  aboutInput.value = userInfoInputs.about;
   formEditProfileValidation.resetValidation();
   popupEditProfile.open();
 })

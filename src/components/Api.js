@@ -5,7 +5,21 @@ export default class Api {
   }
 
   getInitialCards() {
-    return fetch(this.url, {
+    return fetch(`${this.url}/cards`, {
+      headers: this.headers,
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch(err => Promise.reject(err));
+  }
+
+  getUserInfo() {
+    return fetch(`${this.url}/users/me`, {
       headers: this.headers,
     })
     .then(res => {
@@ -18,5 +32,42 @@ export default class Api {
     .catch(err => Promise.reject(err));
   }
 
-  // другие методы работы с API
+  editProfileTask(data) {
+    return fetch(`${this.url}/users/me`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        name: data.name,
+        about: data.about,
+      })
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`));
+    })
+    .catch(err => Promise.reject(err));
+  }
+
+  addPlaceTask(data) {
+    return fetch(`${this.url}/cards`, {
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      })
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`));
+    })
+    .catch(err => Promise.reject(err));
+  }
+
 }
