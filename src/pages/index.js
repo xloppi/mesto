@@ -1,4 +1,5 @@
 import './index.css'
+import Api from '../components/Api.js'
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
@@ -7,7 +8,7 @@ import PopupWithImage from '../components/PopupWithImage.js'
 import UserInfo from '../components/UserInfo.js'
 
 import {
-  initialCards,
+  options,
   settignsValidation,
   listCards,
   editProfileButton,
@@ -23,6 +24,8 @@ formEditProfileValidation.enableValidation();
 const formAddPlaceValidation = new FormValidator(settignsValidation, formAddPlace);
 formAddPlaceValidation.enableValidation();
 
+const api = new Api(options);
+
 const user = new UserInfo ({nameSelector: ".profile__title", jobSelector: ".profile__subtitle"});
 
 function handleCardClick (name, link) {
@@ -34,14 +37,19 @@ function generateCard(item) {
   return elementcard.createCard();
 }
 
-const cardsList = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    cardsList.addItem(generateCard(item));
-    },
-  },
-  listCards
-);
+api.getInitialCards()
+  .then(data => {
+    console.log(data);
+    const cardsList = new Section({
+      items: data,
+      renderer: (item) => {
+        cardsList.addItem(generateCard(item));
+        },
+      },
+      listCards
+    );
+    cardsList.renderItems();
+  })
 
 const popupEditProfile = new PopupWithForm({
   handleFormSubmit: (formData) => {
@@ -78,4 +86,3 @@ addPlaceButton.addEventListener('click',() => {
   popupAddPlace.open();
 });
 
-cardsList.renderItems();
