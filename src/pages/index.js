@@ -1,13 +1,15 @@
 import './index.css'
+import Api from '../components/Api.js'
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithSubmit from '../components/PopupWithSubmit.js'
 import UserInfo from '../components/UserInfo.js'
 
 import {
-  initialCards,
+  options,
   settignsValidation,
   listCards,
   editProfileButton,
@@ -15,37 +17,85 @@ import {
   formEditProfile,
   formAddPlace,
   nameInput,
-  jobInput
+  aboutInput,
 } from '../utils/constants.js'
+
+let userId = '';
 
 const formEditProfileValidation = new FormValidator(settignsValidation, formEditProfile);
 formEditProfileValidation.enableValidation();
 const formAddPlaceValidation = new FormValidator(settignsValidation, formAddPlace);
 formAddPlaceValidation.enableValidation();
 
-const user = new UserInfo ({nameSelector: ".profile__title", jobSelector: ".profile__subtitle"});
+const api = new Api(options);
 
-function handleCardClick (name, link) {
-  popupViewing.open(name, link);
-}
-
-function generateCard(item) {
-  const elementcard = new Card(item, ".elements__card_template", handleCardClick);
-  return elementcard.createCard();
-}
+const user = new UserInfo ({nameSelector: ".profile__title", jobSelector: ".profile__subtitle", avatarSelector: ".profile__avatar"});
 
 const cardsList = new Section({
-  items: initialCards,
   renderer: (item) => {
     cardsList.addItem(generateCard(item));
     },
   },
-  listCards
+  listCards,
 );
+
+function handleCardClick(name, link) {
+  popupViewing.open(name, link);
+}
+
+const popupSubmitDelete = new PopupWithSubmit({
+  handleSubmit: (data) => {
+    api.deletePlaceTask(data._cardId)
+      .then(() => {
+        popupSubmitDelete.close();
+        console.log(data)
+        data.removeCard();
+      })
+  },
+  popupSelector:".popup_submit-delete"
+ });
+
+ popupSubmitDelete.setEventListeners();
+
+function handleCardDelete(card) {
+  popupSubmitDelete.setSubmitAction(card)
+  popupSubmitDelete.open();
+}
+
+function generateCard(item) {
+  const elementcard = new Card(item, ".elements__card_template", handleCardClick, handleCardDelete, api);
+  return elementcard.createCard(userId);
+}
+
+api.getInitialCards()
+  .then(data => {
+    cardsList.renderItems(data.reverse());
+  })
+  .catch((err) => {
+    console.log('Ошибка: ', err);
+  });
+
+
+api.getUserInfo()
+  .then(res => {
+    user.setUserInfo(res);
+    userId = res._id;
+    console.log(userId);
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log('Ошибка: ', err);
+  });
 
 const popupEditProfile = new PopupWithForm({
   handleFormSubmit: (formData) => {
-    user.setUserInfo(formData);
+    api.editProfileTask(formData)
+      .then(formData => {
+        user.setUserInfo(formData)
+      })
+      .catch((err) => {
+        console.log('Ошибка: ', err);
+      })
   },
   popupSelector: ".popup_edit-profile"
 });
@@ -54,7 +104,13 @@ popupEditProfile.setEventListeners();
 
 const popupAddPlace = new PopupWithForm({
   handleFormSubmit: (formData) => {
-    cardsList.addItem(generateCard(formData));
+    api.addPlaceTask(formData)
+      .then((res) => {
+        cardsList.addItem(generateCard(res));
+      })
+      .catch((err) => {
+        console.log('Ошибка: ', err);
+      })
   },
   popupSelector:".popup_add-place"
 });
@@ -68,7 +124,7 @@ popupViewing.setEventListeners();
 editProfileButton.addEventListener('click',() => {
   const userInfoInputs = user.getUserInfo();
   nameInput.value = userInfoInputs.name;
-  jobInput.value = userInfoInputs.job;
+  aboutInput.value = userInfoInputs.about;
   formEditProfileValidation.resetValidation();
   popupEditProfile.open();
 })
@@ -78,4 +134,3 @@ addPlaceButton.addEventListener('click',() => {
   popupAddPlace.open();
 });
 
-cardsList.renderItems();
