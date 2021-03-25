@@ -5,6 +5,7 @@ import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithSubmit from '../components/PopupWithSubmit.js'
 import UserInfo from '../components/UserInfo.js'
 
 import {
@@ -15,10 +16,11 @@ import {
   addPlaceButton,
   formEditProfile,
   formAddPlace,
-  userAvatar,
   nameInput,
-  aboutInput
+  aboutInput,
 } from '../utils/constants.js'
+
+let userId = '';
 
 const formEditProfileValidation = new FormValidator(settignsValidation, formEditProfile);
 formEditProfileValidation.enableValidation();
@@ -27,29 +29,47 @@ formAddPlaceValidation.enableValidation();
 
 const api = new Api(options);
 
-const user = new UserInfo ({nameSelector: ".profile__title", jobSelector: ".profile__subtitle"});
+const user = new UserInfo ({nameSelector: ".profile__title", jobSelector: ".profile__subtitle", avatarSelector: ".profile__avatar"});
 
-function handleCardClick (name, link) {
+const cardsList = new Section({
+  renderer: (item) => {
+    cardsList.addItem(generateCard(item));
+    },
+  },
+  listCards,
+);
+
+function handleCardClick(name, link) {
   popupViewing.open(name, link);
 }
 
+const popupSubmitDelete = new PopupWithSubmit({
+  handleSubmit: (data) => {
+    api.deletePlaceTask(data._cardId)
+      .then(() => {
+        popupSubmitDelete.close();
+        console.log(data)
+        data.removeCard();
+      })
+  },
+  popupSelector:".popup_submit-delete"
+ });
+
+ popupSubmitDelete.setEventListeners();
+
+function handleCardDelete(card) {
+  popupSubmitDelete.setSubmitAction(card)
+  popupSubmitDelete.open();
+}
+
 function generateCard(item) {
-  const elementcard = new Card(item, ".elements__card_template", handleCardClick);
-  return elementcard.createCard();
+  const elementcard = new Card(item, ".elements__card_template", handleCardClick, handleCardDelete, api);
+  return elementcard.createCard(userId);
 }
 
 api.getInitialCards()
   .then(data => {
-    const cardsList = new Section({
-      items: data,
-      renderer: (item) => {
-        cardsList.addItem(generateCard(item));
-        },
-      },
-      listCards,
-      api
-    );
-    cardsList.renderItems()
+    cardsList.renderItems(data.reverse());
   })
   .catch((err) => {
     console.log('Ошибка: ', err);
@@ -57,11 +77,15 @@ api.getInitialCards()
 
 
 api.getUserInfo()
-  .then(data => {
-    user.setUserInfo(data);
-    userAvatar.src = data.avatar;
+  .then(res => {
+    user.setUserInfo(res);
+    userId = res._id;
+    console.log(userId);
+    console.log(res);
   })
-
+  .catch((err) => {
+    console.log('Ошибка: ', err);
+  });
 
 const popupEditProfile = new PopupWithForm({
   handleFormSubmit: (formData) => {
@@ -82,7 +106,6 @@ const popupAddPlace = new PopupWithForm({
   handleFormSubmit: (formData) => {
     api.addPlaceTask(formData)
       .then((res) => {
-        console.log(res)
         cardsList.addItem(generateCard(res));
       })
       .catch((err) => {

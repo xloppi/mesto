@@ -70,4 +70,19 @@ export default class Api {
     .catch(err => Promise.reject(err));
   }
 
+  deletePlaceTask(id) {
+    return fetch(`${this.url}/cards/${id}`, {
+      method: 'DELETE',
+      headers: this.headers,
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`));
+    })
+    .catch(err => Promise.reject(err));
+  }
+
 }
