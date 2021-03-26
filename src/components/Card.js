@@ -12,8 +12,11 @@ export default class Card {
   }
 
   _getTemplateCard() {
-    const cardElement = this._template.content.cloneNode(true);
-    return cardElement;
+    return this._template.content.cloneNode(true).children[0];
+  }
+
+  _isLiked() {
+    console.log(this._likesCard.some(this._userId)) ;
   }
 
   _isOwner(userId) {
@@ -22,26 +25,30 @@ export default class Card {
     }
   }
 
+  _setEventListeners() {
+    this._htmlCard.querySelector(".elements__card-like-button").addEventListener('click', this._toggleLike);
+    this._cardDeleteButton.addEventListener('click', () => {
+      this._handleCardDelete(this);
+    });
+    this._cardImage.addEventListener('click', () => {
+      this._handleCardClick(this._nameCard, this._urlCard);
+    });
+  }
+
   createCard(userId) {
     this._htmlCard = this._getTemplateCard();
+    console.log(this._htmlCard)
     this._cardDeleteButton = this._htmlCard.querySelector(".elements__card-delete-button");
+    this._userId = userId;
     this._isOwner(userId);
     this._cardImage = this._htmlCard.querySelector(".elements__card-image");
     this._cardLikesCounter = this._htmlCard.querySelector(".elements__card-like-counter");
     this._cardLikesCounter.textContent = this._likesCard.length;
     this._cardImage.src = this._urlCard;
     this._cardImage.alt = this._nameCard;
-    this._setEventListeners();
     this._htmlCard.querySelector(".elements__card-title").textContent = this._nameCard;
+    this._setEventListeners();
     return this._htmlCard
-  }
-
-  _setEventListeners() {
-    this._htmlCard.querySelector(".elements__card-like-button").addEventListener('click', this._toggleLike);
-    this._cardDeleteButton.addEventListener('click', () => this._handleCardDelete(this));
-    this._cardImage.addEventListener('click', () => {
-      this._handleCardClick(this._nameCard, this._urlCard);
-    });
   }
 
   _toggleLike (event) {
@@ -50,5 +57,6 @@ export default class Card {
 
   removeCard() {
     this._htmlCard.remove();
+    this._htmlCard = null;
   }
 }

@@ -39,23 +39,24 @@ const cardsList = new Section({
   listCards,
 );
 
-function handleCardClick(name, link) {
-  popupViewing.open(name, link);
-}
-
 const popupSubmitDelete = new PopupWithSubmit({
-  handleSubmit: (data) => {
-    api.deletePlaceTask(data._cardId)
-      .then(() => {
+  handleSubmit: (card) => {
+    api.deletePlaceTask(card._cardId)
+      .then(() =>{
         popupSubmitDelete.close();
-        console.log(data)
-        data.removeCard();
-      })
+        card.removeCard();})
+      .catch((err) => {
+        console.log('Ошибка: ', err);
+      });
   },
   popupSelector:".popup_submit-delete"
  });
 
  popupSubmitDelete.setEventListeners();
+
+ function handleCardClick(name, link) {
+  popupViewing.open(name, link);
+}
 
 function handleCardDelete(card) {
   popupSubmitDelete.setSubmitAction(card)
@@ -80,8 +81,6 @@ api.getUserInfo()
   .then(res => {
     user.setUserInfo(res);
     userId = res._id;
-    console.log(userId);
-    console.log(res);
   })
   .catch((err) => {
     console.log('Ошибка: ', err);
