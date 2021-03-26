@@ -26,5 +26,5 @@ export const aboutInput = document.querySelector(".popup__input_type_job");
 export const submitAddPlaceButton = document.querySelector(".popup__submit-add-place");
 export const submitEditProfileButton = document.querySelector(".popup__submit-edit-profile");
 export const submitEditAvatarButton = document.querySelector(".popup__submit-edit-avatar");
-export const submitDeleteCardButton = document.querySelector(".popup__close_delete-card");
+export const submitDeleteCardButton = document.querySelector(".popup__close-delete-card");
 
