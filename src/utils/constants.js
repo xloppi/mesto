@@ -23,4 +23,5 @@ export const formAddPlace = document.querySelector(".popup__form_add-place");
 export const formEditAvatar = document.querySelector(".popup__form_edit-avatar");
 export const nameInput = document.querySelector(".popup__input_type_name");
 export const aboutInput = document.querySelector(".popup__input_type_job");
+export const submitAddPlaceButton = document.querySelector(".popup__submit-add-place");
 

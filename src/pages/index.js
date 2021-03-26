@@ -20,6 +20,7 @@ import {
   formEditAvatar,
   nameInput,
   aboutInput,
+  submitAddPlaceButton
 } from '../utils/constants.js'
 
 let userId = '';
@@ -130,12 +131,16 @@ popupEditProfile.setEventListeners();
 
 const popupAddPlace = new PopupWithForm({
   handleFormSubmit: (formData) => {
+    submitAddPlaceButton.textContent = 'Сохранение...'
     api.addPlaceTask(formData)
       .then((res) => {
         cardsList.addItem(generateCard(res));
       })
       .catch((err) => {
         console.log('Ошибка: ', err);
+      })
+      .finally(() => {
+        submitAddPlaceButton.textContent = 'Создать'
       })
   },
   popupSelector:".popup_add-place"
