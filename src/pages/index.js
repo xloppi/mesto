@@ -20,7 +20,10 @@ import {
   formEditAvatar,
   nameInput,
   aboutInput,
-  submitAddPlaceButton
+  submitAddPlaceButton,
+  submitEditProfileButton,
+  submitEditAvatarButton,
+  submitDeleteCardButton
 } from '../utils/constants.js'
 
 let userId = '';
@@ -46,6 +49,7 @@ const cardsList = new Section({
 
 const popupSubmitDelete = new PopupWithSubmit({
   handleSubmit: () => {
+    submitDeleteCardButton.textContent = 'Удаление...'
     const card = popupSubmitDelete._card;
     api.deletePlaceTask(card._cardId)
       .then(() =>{
@@ -53,7 +57,10 @@ const popupSubmitDelete = new PopupWithSubmit({
         card.removeCard();})
       .catch((err) => {
         console.log('Ошибка: ', err);
-      });
+      })
+      .finally(() => {
+        submitDeleteCardButton.textContent = 'Да'
+      })
   },
   popupSelector:".popup_submit-delete"
  });
@@ -116,12 +123,16 @@ api.getUserInfo()
 
 const popupEditProfile = new PopupWithForm({
   handleFormSubmit: (formData) => {
+    submitEditProfileButton.textContent = 'Сохранение...'
     api.editProfileTask(formData)
       .then(formData => {
         user.setUserInfo(formData)
       })
       .catch((err) => {
         console.log('Ошибка: ', err);
+      })
+      .finally(() => {
+        submitEditProfileButton.textContent = 'Сохранить'
       })
   },
   popupSelector: ".popup_edit-profile"
@@ -150,12 +161,16 @@ popupAddPlace.setEventListeners();
 
 const popupEditAvatar = new PopupWithForm({
   handleFormSubmit: (formData) => {
+    submitEditAvatarButton.textContent = 'Сохранение...'
     api.editAvatarTask(formData)
       .then((res) => {
         user.setUserAvatar(res);
       })
       .catch((err) => {
         console.log('Ошибка: ', err);
+      })
+      .finally(() => {
+        submitEditAvatarButton.textContent = 'Сохранить'
       })
   },
   popupSelector:".popup_update-avatar"
