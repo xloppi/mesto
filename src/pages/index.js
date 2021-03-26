@@ -40,7 +40,8 @@ const cardsList = new Section({
 );
 
 const popupSubmitDelete = new PopupWithSubmit({
-  handleSubmit: (card) => {
+  handleSubmit: () => {
+    const card = popupSubmitDelete._card;
     api.deletePlaceTask(card._cardId)
       .then(() =>{
         popupSubmitDelete.close();
@@ -63,9 +64,31 @@ function handleCardDelete(card) {
   popupSubmitDelete.open();
 }
 
+function handleCardLike(card) {
+  if (card.isOwnerLiked()) {
+    api.deleteLikeTask(card._cardId)
+      .then((res) => {
+        card.setLikes(res);
+        card.like();
+      })
+      .catch((err) => {
+        console.log('Ошибка: ', err);
+      });
+  } else {
+    api.putLikeTask(card._cardId)
+      .then((res) => {
+        card.setLikes(res);
+        card.like();
+      })
+      .catch((err) => {
+        console.log('Ошибка: ', err);
+      });
+  }
+}
+
 function generateCard(item) {
-  const elementcard = new Card(item, ".elements__card_template", handleCardClick, handleCardDelete, api);
-  return elementcard.createCard(userId);
+  const elementcard = new Card(item, userId, ".elements__card_template", handleCardClick, handleCardDelete, handleCardLike);
+  return elementcard.createCard();
 }
 
 api.getInitialCards()

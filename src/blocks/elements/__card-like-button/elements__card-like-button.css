@@ -22,7 +22,4 @@
   opacity: 0.5;
 }
 
-.elements__card-like-button:active {
-  background-image: url(../../../images/elements/like_active.svg);
-}
 
