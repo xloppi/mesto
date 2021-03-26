@@ -14,8 +14,10 @@ import {
   listCards,
   editProfileButton,
   addPlaceButton,
+  editAvatarButton,
   formEditProfile,
   formAddPlace,
+  formEditAvatar,
   nameInput,
   aboutInput,
 } from '../utils/constants.js'
@@ -26,6 +28,8 @@ const formEditProfileValidation = new FormValidator(settignsValidation, formEdit
 formEditProfileValidation.enableValidation();
 const formAddPlaceValidation = new FormValidator(settignsValidation, formAddPlace);
 formAddPlaceValidation.enableValidation();
+const formEditAvatarPlaceValidation = new FormValidator(settignsValidation, formEditAvatar);
+formEditAvatarPlaceValidation.enableValidation();
 
 const api = new Api(options);
 
@@ -139,6 +143,21 @@ const popupAddPlace = new PopupWithForm({
 
 popupAddPlace.setEventListeners();
 
+const popupEditAvatar = new PopupWithForm({
+  handleFormSubmit: (formData) => {
+    api.editAvatarTask(formData)
+      .then((res) => {
+        user.setUserAvatar(res);
+      })
+      .catch((err) => {
+        console.log('Ошибка: ', err);
+      })
+  },
+  popupSelector:".popup_update-avatar"
+});
+
+popupEditAvatar.setEventListeners();
+
 const popupViewing = new PopupWithImage(".popup_viewing-place-photo");
 
 popupViewing.setEventListeners();
@@ -156,3 +175,7 @@ addPlaceButton.addEventListener('click',() => {
   popupAddPlace.open();
 });
 
+editAvatarButton.addEventListener('click',() => {
+  formEditAvatarPlaceValidation.resetValidation();
+  popupEditAvatar.open();
+});

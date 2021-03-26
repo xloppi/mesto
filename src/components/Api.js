@@ -2,19 +2,20 @@ export default class Api {
   constructor(options) {
     this.url = options.url;
     this.headers = options.headers;
+    this._then = (res) => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    };
+    this._catch = (err) => Promise.reject(err)
   }
 
   getInitialCards() {
     return fetch(`${this.url}/cards`, {
       headers: this.headers,
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._then)
     .catch(err => Promise.reject(err));
   }
 
@@ -22,14 +23,8 @@ export default class Api {
     return fetch(`${this.url}/users/me`, {
       headers: this.headers,
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`));
-    })
-    .catch(err => Promise.reject(err));
+    .then(this._then)
+    .catch(this._catch);
   }
 
   editProfileTask(data) {
@@ -41,14 +36,8 @@ export default class Api {
         about: data.about,
       })
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`));
-    })
-    .catch(err => Promise.reject(err));
+    .then(this._then)
+    .catch(this._catch);
   }
 
   addPlaceTask(data) {
@@ -60,14 +49,20 @@ export default class Api {
         link: data.link,
       })
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
+    .then(this._then)
+    .catch(this._catch);
+  }
 
-      return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`));
+  editAvatarTask(data) {
+    return fetch(`${this.url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: data.link,
+      })
     })
-    .catch(err => Promise.reject(err));
+    .then(this._then)
+    .catch(this._catch);
   }
 
   deletePlaceTask(id) {
@@ -75,14 +70,8 @@ export default class Api {
       method: 'DELETE',
       headers: this.headers,
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`));
-    })
-    .catch(err => Promise.reject(err));
+    .then(this._then)
+    .catch(this._catch);
   }
 
   putLikeTask(id) {
@@ -90,14 +79,8 @@ export default class Api {
       method: 'PUT',
       headers: this.headers,
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`));
-    })
-    .catch(err => Promise.reject(err));
+    .then(this._then)
+    .catch(this._catch);
   }
 
   deleteLikeTask(id) {
@@ -105,13 +88,7 @@ export default class Api {
       method: 'DELETE',
       headers: this.headers,
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`));
-    })
-    .catch(err => Promise.reject(err));
+    .then(this._then)
+    .catch(this._catch);
   }
 }
