@@ -50,11 +50,12 @@ const cardsList = new Section({
 const popupSubmitDelete = new PopupWithSubmit({
   handleSubmit: () => {
     submitDeleteCardButton.textContent = 'Удаление...'
-    const card = popupSubmitDelete._card;
-    api.deletePlaceTask(card._cardId)
+    const card = popupSubmitDelete.getCard();
+    api.deletePlaceTask(popupSubmitDelete.getCardId())
       .then(() =>{
         popupSubmitDelete.close();
-        card.removeCard();})
+        card.removeCard();
+      })
       .catch((err) => {
         console.log('Ошибка: ', err);
       })
@@ -103,19 +104,12 @@ function generateCard(item) {
   return elementcard.createCard();
 }
 
-api.getInitialCards()
+Promise.all([api.getInitialCards(), api.getUserInfo()])
   .then(data => {
-    cardsList.renderItems(data.reverse());
-  })
-  .catch((err) => {
-    console.log('Ошибка: ', err);
-  });
-
-
-api.getUserInfo()
-  .then(res => {
-    user.setUserInfo(res);
-    userId = res._id;
+    user.setUserInfo(data[1]);
+    userId = data[1]._id;
+    cardsList.renderItems(data[0].reverse());
+    console.log(data[0].reverse())
   })
   .catch((err) => {
     console.log('Ошибка: ', err);
@@ -127,6 +121,7 @@ const popupEditProfile = new PopupWithForm({
     api.editProfileTask(formData)
       .then(formData => {
         user.setUserInfo(formData)
+        popupEditProfile.close();
       })
       .catch((err) => {
         console.log('Ошибка: ', err);
@@ -146,6 +141,7 @@ const popupAddPlace = new PopupWithForm({
     api.addPlaceTask(formData)
       .then((res) => {
         cardsList.addItem(generateCard(res));
+        popupAddPlace.close();
       })
       .catch((err) => {
         console.log('Ошибка: ', err);
@@ -165,6 +161,7 @@ const popupEditAvatar = new PopupWithForm({
     api.editAvatarTask(formData)
       .then((res) => {
         user.setUserAvatar(res);
+        popupEditAvatar.close();
       })
       .catch((err) => {
         console.log('Ошибка: ', err);
@@ -199,3 +196,21 @@ editAvatarButton.addEventListener('click',() => {
   formEditAvatarPlaceValidation.resetValidation();
   popupEditAvatar.open();
 });
+
+/*api.getInitialCards()
+  .then(data => {
+    cardsList.renderItems(data.reverse());
+    console.log(data.reverse())
+  })
+  .catch((err) => {
+    console.log('Ошибка: ', err);
+  });
+
+api.getUserInfo()
+  .then(res => {
+    user.setUserInfo(res);
+    userId = res._id;
+  })
+  .catch((err) => {
+    console.log('Ошибка: ', err);
+  });*/

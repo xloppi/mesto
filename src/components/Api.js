@@ -8,23 +8,20 @@ export default class Api {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
     };
-    this._catch = (err) => Promise.reject(err)
   }
 
   getInitialCards() {
     return fetch(`${this.url}/cards`, {
       headers: this.headers,
     })
-    .then(this._then)
-    .catch(err => Promise.reject(err));
+    .then(this._then);
   }
 
   getUserInfo() {
     return fetch(`${this.url}/users/me`, {
       headers: this.headers,
     })
-    .then(this._then)
-    .catch(this._catch);
+    .then(this._then);
   }
 
   editProfileTask(data) {
@@ -36,8 +33,7 @@ export default class Api {
         about: data.about,
       })
     })
-    .then(this._then)
-    .catch(this._catch);
+    .then(this._then);
   }
 
   addPlaceTask(data) {
@@ -49,8 +45,7 @@ export default class Api {
         link: data.link,
       })
     })
-    .then(this._then)
-    .catch(this._catch);
+    .then(this._then);
   }
 
   editAvatarTask(data) {
@@ -61,8 +56,7 @@ export default class Api {
         avatar: data.link,
       })
     })
-    .then(this._then)
-    .catch(this._catch);
+    .then(this._then);
   }
 
   deletePlaceTask(id) {
@@ -70,8 +64,7 @@ export default class Api {
       method: 'DELETE',
       headers: this.headers,
     })
-    .then(this._then)
-    .catch(this._catch);
+    .then(this._then);
   }
 
   putLikeTask(id) {
@@ -79,8 +72,7 @@ export default class Api {
       method: 'PUT',
       headers: this.headers,
     })
-    .then(this._then)
-    .catch(this._catch);
+    .then(this._then);
   }
 
   deleteLikeTask(id) {
@@ -88,7 +80,6 @@ export default class Api {
       method: 'DELETE',
       headers: this.headers,
     })
-    .then(this._then)
-    .catch(this._catch);
+    .then(this._then);
   }
 }
