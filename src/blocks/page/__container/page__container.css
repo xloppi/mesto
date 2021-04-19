@@ -1,15 +1,1 @@
-.page__container {
-  min-width: 320px;
-  max-width: 918px;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  box-sizing: border-box;
-  padding: 45px 19px 0;
-}
 
-@media screen and (max-width: 768px) {
-  .page__container {
-    padding: 28px 19px 0;
-  }
-}
